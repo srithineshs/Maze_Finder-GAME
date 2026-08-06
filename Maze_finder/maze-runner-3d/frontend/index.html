@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Runner 3D</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="auth-bg"></div>
+
+    <div id="hud">
+        <div id="phase-badge" class="hud-item">DAY — 60s</div>
+        <div id="safe-zone-status" class="hud-item">SAFE ZONE: YES</div>
+        <div id="player-pos" class="hud-item">POS: (1, 1)</div>
+        <div id="key-hints" class="hud-item key-hints-panel">
+            <span>WASD move</span>
+            <span>SHIFT sprint</span>
+            <span>SPACE solve</span>
+            <span>1/2/3 algo</span>
+            <span>4 compare</span>
+            <span>M minimap</span>
+            <span>TAB chart</span>
+        </div>
+    </div>
+
+    <div id="griever-alert" class="hidden">GRIEVER DETECTED!</div>
+
+    <div id="stats-panel" class="hidden">
+        <canvas id="algoChart"></canvas>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-badge">WICKED SYSTEMS INC.</div>
+            <h2 id="auth-title">Runner Identity</h2>
+            <p class="modal-subtitle" id="auth-subtitle">Identify yourself, Glader.</p>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="CALLSIGN" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="ACCESS CODE">
+            </div>
+            <div class="button-group">
+                <button id="auth-submit">ENTER THE MAZE</button>
+                <button id="toggle-auth">NEW RUNNER? REGISTER</button>
+            </div>
+            <p id="auth-error" class="error hidden"></p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="js/scene.js"></script>
+    <script src="js/maze_builder.js"></script>
+    <script src="js/auth_3d.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/ai_solver.js"></script>
+    <script src="js/griever_renderer.js"></script>
+    <script src="js/night_cycle.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@300;500;700&family=Courier+Prime:wght@400;700&display=swap');
+
+:root {
+    --primary: #4aff8c;
+    --danger: #ff4a4a;
+    --bg-dark: #0a0a0c;
+    --glass: rgba(20, 20, 25, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-dark);
+    font-family: 'Outfit', sans-serif;
+    color: white;
+}
+
+#gameCanvas {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+}
+
+/* 3D Auth Background Container */
+#auth-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Glassmorphism HUD */
+#hud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.hud-item {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
+
+#phase-badge {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    color: #ffcc00;
+}
+
+#phase-badge.night {
+    color: var(--danger);
+    border-color: var(--danger);
+    box-shadow: 0 0 15px rgba(255, 74, 74, 0.3);
+}
+
+#player-pos {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    color: #aaa;
+    font-family: 'Courier Prime', monospace;
+}
+
+#safe-zone-status {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    color: var(--primary);
+    border-color: rgba(74, 255, 140, 0.3);
+}
+
+#safe-zone-status.danger {
+    color: var(--danger);
+    border-color: rgba(255, 74, 74, 0.3);
+}
+
+#griever-alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 0, 0, 0.2);
+    border: 2px solid var(--danger);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 4px;
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    animation: flash 1s infinite alternate;
+    z-index: 200;
+    backdrop-filter: blur(5px);
+}
+
+@keyframes flash {
+    0% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.95); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Stats Panel */
+#stats-panel {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 800px;
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+    z-index: 100;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+#stats-panel.hidden {
+    transform: translate(-50%, 120%);
+    opacity: 0;
+}
+
+/* Auth Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(10, 10, 12, 0.5), #0a0a0c);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none !important;
+}
+
+.modal-content {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    padding: 40px;
+    border-radius: 24px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: modalIn 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    background: linear-gradient(45deg, #fff, #888);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 14px 20px;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(74, 255, 140, 0.15);
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: inherit;
+}
+
+#auth-submit {
+    background: var(--primary);
+    color: #000;
+}
+
+#auth-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(74, 255, 140, 0.2);
+}
+
+#toggle-auth {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+#toggle-auth:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.error {
+    color: var(--danger);
+    font-size: 14px;
+    margin-top: 20px;
+    font-weight: 500;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Task 4: UI Agent Theme classes */
+.modal-badge {
+    font-size: 10px; letter-spacing: 4px; color: var(--primary);
+    border: 1px solid rgba(74,255,140,0.3); padding: 4px 12px;
+    border-radius: 20px; display: inline-block; margin-bottom: 20px;
+    font-family: 'Courier Prime', monospace;
+}
+.modal-subtitle {
+    font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 1px;
+    margin: -20px 0 24px; font-family: 'Courier Prime', monospace;
+}
+.modal-content { position: relative; }
+h2 { text-shadow: 0 0 20px rgba(74,255,140,0.3); }
+
+/* Task 5: Key Hints Panel */
+.key-hints-panel {
+    position: absolute; bottom: 25px; right: 25px;
+    display: flex; flex-direction: column; gap: 4px;
+    font-size: 11px; letter-spacing: 1px;
+    opacity: 0.45; padding: 10px 16px;
+}
+.key-hints-panel span { color: #aaa; font-family: 'Courier Prime', monospace; }
+.key-hints-panel span::before { content: '›  '; color: var(--primary); }
